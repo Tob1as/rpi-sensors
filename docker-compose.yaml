@@ -1,0 +1,102 @@
+version: '2.4'
+
+services:
+
+  mariadb:
+    image: tobi312/rpi-mariadb:10.4-alpine
+    #container_name: sensors-mariadb
+    #restart: unless-stopped
+    volumes:
+      #- mariadb-data:/var/lib/mysql:rw
+      - ./mariadb:/var/lib/mysql:rw
+      - ./sensors_create_table.sql:/docker-entrypoint-initdb.d/sensors_create_table.sql:ro
+    environment:
+      TZ: ${TZ}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      #- 3306:3306
+      - 3306
+    healthcheck:
+      test:  mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD || exit 1
+      #test:  mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD || exit 1
+      interval: 60s
+      timeout: 5s
+      retries: 5
+    networks:
+      net-sensors:
+        aliases:
+         - mysql
+         - db
+
+  dht22:
+    #build:
+    #  context: ./
+    #  dockerfile: alpine.armhf.python.Dockerfile
+    image: tobi312/rpi-sensors:python-alpine
+    #container_name: sensors-dht22
+    #restart: unless-stopped
+    environment:
+      #TZ: ${TZ}
+      GPIO_PIN_DHT22: ${GPIO_PIN_DHT22}
+      DHT22_SLEEPTIME: ${DHT22_SLEEPTIME}
+      DHT22_ID: ${DHT22_ID}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    devices:
+      - /dev/gpiomem
+    #volumes:
+    #  - ./dht_sensor.py:/dht_sensor.py:ro
+    networks:
+      net-sensors:
+    depends_on:
+      - mariadb
+
+  web:
+    #image: tobi312/php:8.0-apache-arm
+    image: tobi312/php:8.0-fpm-nginx-alpine-arm
+    #container_name: sensors-web
+    #restart: unless-stopped
+    ports:
+      - "${WEB_PORT}:80"
+      #- "80:80"
+      #- "443:443"
+    volumes:
+      - ./html:/var/www/html:rw
+    environment:
+      TZ: ${TZ}
+      PHP_ERRORS: 1
+      ## next env only with apache
+      #ENABLE_APACHE_REMOTEIP: 0
+      #ENABLE_APACHE_STATUS: 1
+      ## next env only with nginx
+      ENABLE_NGINX_REMOTEIP: 0
+      ENABLE_NGINX_STATUS: 1
+      ## Database (php to mariadb)
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    healthcheck:
+      #test:  curl --fail http://localhost:80/server-status || exit 1 
+      test:  curl --fail http://localhost:80/nginx_status || exit 1  
+      interval: 60s
+      timeout: 10s
+      retries: 3
+    networks:
+      net-sensors:
+    depends_on:
+      - mariadb
+
+networks:
+  net-sensors:
+    name: net-sensors
+
+#volumes:
+#  mariadb-data:

@@ -1,0 +1,23 @@
+# General (configs, ...)
+.env
+
+# Database
+mariadb/
+mysql/
+db/
+*.sqlite3
+*.sqlite
+*.db
+
+# JetBrains <https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore>
+.idea/
+*.iml
+
+# Backup <https://github.com/github/gitignore/blob/master/Global/Backup.gitignore>
+backups/
+backup/
+*.bak
+*.gho
+*.ori
+*.orig
+*.tmp
