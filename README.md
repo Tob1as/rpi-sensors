@@ -3,7 +3,7 @@
 ## Description
 
 This application measures temperature and humidity with a [DHT22/AM2302](https://learn.adafruit.com/dht) sensor connected to the Raspberry Pi.  
-The sensor is read out with a Python script and the library [Adafruit_CircuitPython_DHT](https://github.com/adafruit/Adafruit_CircuitPython_DHT). The measurement data is displayed in the console or can optionally be save to a database (MariaDB) and displayed on a web server.
+The sensor is read out with a Python script and the library [Adafruit_CircuitPython_DHT](https://github.com/adafruit/Adafruit_CircuitPython_DHT). The measurement data is displayed in the console and can optionally be save to a database (MariaDB) and displayed on a web server.
 
 ## Requirements
 
