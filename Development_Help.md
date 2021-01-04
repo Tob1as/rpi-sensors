@@ -13,4 +13,5 @@
     * https://buyzero.de/blogs/news/tutorial-dht22-dht11-und-am2302-temperatursensor-feuchtigkeitsensor-am-raspberry-pi-anschliessen-und-ansteuern
     * https://www.laub-home.de/wiki/Raspberry_Pi_DHT22_Temperatur_Sensor#Adafruit_DHT_Python_Libraries
     * https://mariadb.com/resources/blog/how-to-connect-python-programs-to-mariadb/
+    * https://stackoverflow.com/a/4907053 - Python env variable
 * GPIO in Docker:  https://blog.alexellis.io/gpio-on-swarm/ (`--device /dev/gpiomem`). Only work as root in container?...

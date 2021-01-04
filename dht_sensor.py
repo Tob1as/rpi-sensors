@@ -5,7 +5,7 @@ import board
 import adafruit_dht
 import mariadb
 
-# Variables <https://stackoverflow.com/a/4907053>
+# Variables
 DHT_DATA_PIN = int(os.environ.get('GPIO_PIN_DHT22', 4))
 DHT_READ_TIMEOUT = float(os.environ.get('DHT22_SLEEPTIME', 2))
 DHT_ID = int(os.environ.get('DHT22_ID', 1))

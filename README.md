@@ -1,16 +1,19 @@
 # Raspberry Pi Sensors (rpi-sensors)
 
-* temperature- and humidity sensor: DHT22 (AM2302) 
+## Description
+
+This application measures temperature and humidity with a [DHT22/AM2302](https://learn.adafruit.com/dht) sensor connected to the Raspberry Pi.  
+The sensor is read out with a Python script and the library [Adafruit_CircuitPython_DHT](https://github.com/adafruit/Adafruit_CircuitPython_DHT). The measurement data is displayed in the console or can optionally be save to a database (MariaDB) and displayed on a web server.
 
 ## Requirements
 
-* Raspberry Pi or comatible board with GPIO
+* Raspberry Pi
 * Raspberry Pi OS (previously called Raspbian) (Version: 10 Buster) - here it is successfully tested
 * Sensor: DHT22 (AM2302) (Buy: [int.](https://www.adafruit.com/product/393)/[de](https://www.rasppishop.de/Luftfeuchtigkeit-und-Temperatusensor-DHT22-AM2302))
 
 ## Installation / Usage
 
-First Step:    
+### First Step:    
 ```sh
 # Clone Project 
 git clone https://github.com/Tob1as/rpi-sensors.git
@@ -18,10 +21,12 @@ git clone https://github.com/Tob1as/rpi-sensors.git
 cd rpi-sensors/
 ```
 
-Secend Step:  
+### Secend Step:  
 Use Docker (recommended) or manual installation.  
 
-Note: It use PIN7 = GPIO4 (D4), if you want to change it, it must be done manually in `dht_sensor.py`. Possible solutions for set over env variable in python? `adafruit_dht.DHT22(board.D4)`
+### Note: 
+It use [physical PIN7 = GPIO4 (D4)](https://www.raspberrypi.org/documentation/usage/gpio/), if you want to change it, it must be done manually in `dht_sensor.py`. (Possible solutions for set over env variable in python? `adafruit_dht.DHT22(board.D4)`)  
+The other cable of `AM2302` are connect to 3V and Ground.
 
 ### Docker
 
@@ -58,8 +63,6 @@ Steps:
 
 ### manual installation
   
-(not complete)  
-  
 1. Install requirements:
     ```sh
     sudo apt-get update
@@ -73,6 +76,7 @@ Steps:
     ```sh
     python3 ./dht_sensor.py
     ```
+5. Optional: Copy html-Folder into Webserver with installed PHP-Modul and change database settings in php file.
 
 ## This on
 

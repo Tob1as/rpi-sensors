@@ -57,6 +57,8 @@ services:
     depends_on:
       - mariadb
 
+  # copy and paste "dht22" when you have more than one sensor, then rename to "dht22-2" and change GPIO-PIN and ID (2).
+
   web:
     #image: tobi312/php:8.0-apache-arm
     image: tobi312/php:8.0-fpm-nginx-alpine-arm
