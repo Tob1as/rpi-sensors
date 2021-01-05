@@ -15,7 +15,7 @@ DB_PORT = int(os.environ.get('DB_PORT', 3306))
 DB_DATABASE = str(os.environ.get('DB_DATABASE', ''))
 DB_USER = str(os.environ.get('DB_USER', ''))
 DB_PASSWORD = str(os.environ.get('DB_PASSWORD', ''))
-print("Set Database Host to \"%s\" and Port to \"%s\" and DB to \"%s\" and User to \"%s\"" % (DB_HOST, DB_PORT, DB_DATABASE, DB_USER))
+print("Database - set Host to \"%s\", Port to \"%s\", DB to \"%s\" and User to \"%s\"" % (DB_HOST, DB_PORT, DB_DATABASE, DB_USER))
 
 def save_to_sql(temperature_f, temperature_c, humidity):
     # Connect to MariaDB Platform
@@ -41,13 +41,14 @@ def save_to_sql(temperature_f, temperature_c, humidity):
         print(f"Error: {e}")
     
     conn.commit() 
-    print(f"MariaDB - Last Inserted ID: {cur.lastrowid}")
+    print(f"Database - Last Inserted ID: {cur.lastrowid}")
     
     conn.close()
 
 # Initial the dht device, with data pin connected to:
 dhtDevice = adafruit_dht.DHT22(board.D4)
- 
+#dhtDevice = adafruit_dht.DHT22(DHT_DATA_PIN) # not working in docker container
+
 # you can pass DHT22 use_pulseio=False if you wouldn't like to use pulseio.
 # This may be necessary on a Linux single board computer like the Raspberry Pi,
 # but it will not work in CircuitPython.
@@ -69,8 +70,8 @@ while True:
         # Save the values to the Database
         if (DB_DATABASE !='' and DB_USER !='' and DB_PASSWORD !=''): 
             save_to_sql(temperature_f, temperature_c, humidity)
-        else: 
-            print("Database - settings missing.")
+        #else: 
+        #    print("Database - settings missing.")
  
     except RuntimeError as error:
         # Errors happen fairly often, DHT's are hard to read, just keep going
