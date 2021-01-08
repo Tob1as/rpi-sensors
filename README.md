@@ -25,7 +25,7 @@ cd rpi-sensors/
 Use Docker (recommended) or manual installation.  
 
 ### Note: 
-It use [physical PIN7 = GPIO4 (D4)](https://www.raspberrypi.org/documentation/usage/gpio/), if you want to change it, it must be done manually in `dht_sensor.py`. (Possible solutions for set over env variable in python? `adafruit_dht.DHT22(board.D4)`)  
+It use [physical PIN7 = GPIO4 (D4)](https://www.raspberrypi.org/documentation/usage/gpio/), if you want to change it, it must be done manually in `dht_sensor.py`. (Possible solutions for set over env variable in python?[*](https://github.com/adafruit/Adafruit_CircuitPython_DHT/issues/57) `adafruit_dht.DHT22(board.D4)`)  
 The other cable of `AM2302` are connect to 3V and Ground.
 
 ### Docker
