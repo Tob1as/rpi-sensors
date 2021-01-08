@@ -8,7 +8,7 @@ The sensor is read out with a Python script and the library [Adafruit_CircuitPyt
 ## Requirements
 
 * Raspberry Pi
-* Raspberry Pi OS (previously called Raspbian) (Version: 10 Buster) - here it is successfully tested
+* Raspberry Pi OS (previously called Raspbian), Version: 10 Buster
 * Sensor: DHT22 (AM2302) (Buy: [int.](https://www.adafruit.com/product/393)/[de](https://www.rasppishop.de/Luftfeuchtigkeit-und-Temperatusensor-DHT22-AM2302))
 
 ## Installation / Usage
@@ -33,7 +33,8 @@ The other cable of `AM2302` are connect to 3V and Ground.
 Requirements:
 * installed [Docker](https://docs.docker.com/engine/install/debian/)
 * installed [Docker-Compose](https://docs.docker.com/compose/install/#install-using-pip)
-* Note: Use my install [Script](https://github.com/Tob1asDocker/Collection/raw/master/Docker_on_Raspbian_10_Buster.sh) for that.
+* Help? Use my install [Script](https://github.com/Tob1asDocker/Collection/raw/master/Docker_on_Raspbian_10_Buster.sh) for that.
+* Note: This was developed and tested on a Raspberry Pi 3. On 4 it run when you set `PRIVILEGED_MODE_ENABLE=true` in `.env`-File (see below).
 
 Steps:  
 1. copy env-File:
