@@ -3,7 +3,8 @@
 	
 	#$protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
 	
-	$sqlDatabaseType = getenv('DB_HOST');		// mysql/mariadb or postgresql
+	#$sqlDatabaseType = getenv('DB_HOST');		// mysql/mariadb or postgresql
+	$sqlDatabaseType = "mariadb"				// Default: mariadb
 	$sqlHost = getenv('DB_HOST');				// Default: localhost
 	$sqlPort = getenv('DB_PORT');				// Default: mysql->3306, postgresql->5432
 	$sqlUser = getenv('DB_USER');				// Important: DO NOT USE root OR OTHER admin USER!

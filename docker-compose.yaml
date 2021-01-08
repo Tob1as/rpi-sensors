@@ -11,7 +11,7 @@ services:
       - ./mariadb:/var/lib/mysql:rw
       - ./sensors_create_table.sql:/docker-entrypoint-initdb.d/sensors_create_table.sql:ro
     environment:
-      TZ: ${TZ}
+      TZ: ${TZ:-UTC}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
@@ -25,6 +25,7 @@ services:
       interval: 60s
       timeout: 5s
       retries: 5
+      #start_period: 30s
     networks:
       net-sensors:
         aliases:
@@ -38,13 +39,14 @@ services:
     image: tobi312/rpi-sensors:python-alpine
     #container_name: sensors-dht22
     #restart: unless-stopped
+    privileged: ${PRIVILEGED_MODE_ENABLE:-false}
     environment:
-      #TZ: ${TZ}
-      GPIO_PIN_DHT22: ${GPIO_PIN_DHT22}
-      DHT22_SLEEPTIME: ${DHT22_SLEEPTIME}
-      DHT22_ID: ${DHT22_ID}
-      DB_HOST: ${DB_HOST}
-      DB_PORT: ${DB_PORT}
+      TZ: ${TZ:-UTC}
+      GPIO_PIN_DHT22: ${GPIO_PIN_DHT22:-4}
+      DHT22_SLEEPTIME: ${DHT22_SLEEPTIME:-60}
+      DHT22_ID: ${DHT22_ID:-1}
+      DB_HOST: ${DB_HOST:-mariadb}
+      DB_PORT: ${DB_PORT:-3306}
       DB_DATABASE: ${DB_DATABASE}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
@@ -52,10 +54,11 @@ services:
       - /dev/gpiomem
     #volumes:
     #  - ./dht_sensor.py:/dht_sensor.py:ro
+    depends_on:
+      mariadb:
+        condition: ${DEPENDS_CONDITION:-service_healthy}
     networks:
       net-sensors:
-    depends_on:
-      - mariadb
 
   # copy and paste "dht22" when you have more than one sensor, then rename to "dht22-2" and change GPIO-PIN and ID (2).
 
@@ -71,17 +74,17 @@ services:
     volumes:
       - ./html:/var/www/html:rw
     environment:
-      TZ: ${TZ}
-      PHP_ERRORS: 1
+      TZ: ${TZ:-UTC}
+      PHP_ERRORS: ${WEB_PHP_ERRORS:-1}
       ## next env only with apache
-      #ENABLE_APACHE_REMOTEIP: 0
-      #ENABLE_APACHE_STATUS: 1
+      #ENABLE_APACHE_REMOTEIP: ${WEB_ENABLE_REMOTEIP:-0}
+      #ENABLE_APACHE_STATUS: ${WEB_ENABLE_STATUS:-1}
       ## next env only with nginx
-      ENABLE_NGINX_REMOTEIP: 0
-      ENABLE_NGINX_STATUS: 1
+      ENABLE_NGINX_REMOTEIP: ${WEB_ENABLE_REMOTEIP:-0}
+      ENABLE_NGINX_STATUS: ${WEB_ENABLE_STATUS:-1}
       ## Database (php to mariadb)
-      DB_HOST: ${DB_HOST}
-      DB_PORT: ${DB_PORT}
+      DB_HOST: ${DB_HOST:-mariadb}
+      DB_PORT: ${DB_PORT:-3306}
       DB_DATABASE: ${DB_DATABASE}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
@@ -91,10 +94,12 @@ services:
       interval: 60s
       timeout: 10s
       retries: 3
+      #start_period: 10s
+    depends_on:
+      mariadb:
+        condition: ${DEPENDS_CONDITION:-service_healthy}
     networks:
       net-sensors:
-    depends_on:
-      - mariadb
 
 networks:
   net-sensors:
