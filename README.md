@@ -13,6 +13,10 @@ The sensor is read out with a Python script and the library [Adafruit_CircuitPyt
 
 ## Installation / Usage
 
+### Note: 
+It use [physical PIN7 = GPIO4 (D4)](https://www.raspberrypi.org/documentation/usage/gpio/) by default. You can now[*](https://github.com/adafruit/Adafruit_CircuitPython_DHT/issues/57) change the GPIO Pin over a env-Variable (see below). 
+The other two cable of `AM2302` are connect to 3V and Ground.
+
 ### First Step:    
 ```sh
 # Clone Project 
@@ -24,11 +28,7 @@ cd rpi-sensors/
 ### Secend Step:  
 Use Docker (recommended) or manual installation.  
 
-### Note: 
-It use [physical PIN7 = GPIO4 (D4)](https://www.raspberrypi.org/documentation/usage/gpio/), if you want to change it, it must be done manually in `dht_sensor.py`. (Possible solutions for set over env variable in python?[*](https://github.com/adafruit/Adafruit_CircuitPython_DHT/issues/57) `adafruit_dht.DHT22(board.D4)`)  
-The other cable of `AM2302` are connect to 3V and Ground.
-
-### Docker
+#### Docker
 
 Requirements:
 * installed [Docker](https://docs.docker.com/engine/install/debian/)
@@ -41,7 +41,7 @@ Steps:
     ```sh
     cp example.env .env
     ```
-2. change settings in `.env`-File, example Database Password. Then optional check config:
+2. change settings in `.env`-File, example Database Password or GPIO Pin. Then optional check config:
     ```sh
     docker-compose config
     ```
@@ -62,7 +62,7 @@ Steps:
     docker-compose down -v
     ```
 
-### manual installation
+#### manual installation
   
 1. Install requirements:
     ```sh
@@ -78,6 +78,10 @@ Steps:
     python3 ./dht_sensor.py
     ```
 5. Optional: Copy html-Folder into Webserver with installed PHP-Modul and change database settings in php file.
+
+### Troubleshooting
+
+If your container (example: web) fails to start with Images that based on Alpine 3.13 on ARM devices like Rasperry with Raspbian Buster (32 bit) then see [here](https://github.com/Tob1asDocker/php#troubleshooting) or [here](https://github.com/Tob1asDocker/rpi-mariadb#troubleshooting) or [here](https://docs.linuxserver.io/faq#libseccomp) for a possible solution.
 
 ## This on
 
