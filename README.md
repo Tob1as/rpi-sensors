@@ -81,7 +81,7 @@ Steps:
 
 ### Troubleshooting
 
-If your container (example: web) fails to start with Images that based on Alpine 3.13 on ARM devices like Rasperry with Raspbian Buster (32 bit) then see [here](https://github.com/Tob1asDocker/php#troubleshooting) or [here](https://github.com/Tob1asDocker/rpi-mariadb#troubleshooting) or [here](https://docs.linuxserver.io/faq#libseccomp) for a possible solution.
+If your container (example: web) fails to start with Images that based on Alpine 3.13 on ARM devices like Raspberry with Raspbian Buster (32 bit) then see [here](https://github.com/Tob1asDocker/php#troubleshooting) or [here](https://github.com/Tob1asDocker/rpi-mariadb#troubleshooting) or [here](https://docs.linuxserver.io/faq#libseccomp) for a possible solution.
 
 ## This on
 
