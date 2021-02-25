@@ -1,4 +1,4 @@
-FROM arm32v7/python:3-alpine
+FROM arm32v7/python:3-alpine3.12
 
 LABEL org.opencontainers.image.authors="Tobias Hargesheimer <docker@ison.ws>" \
 	org.opencontainers.image.title="PI-Sensors" \
@@ -16,7 +16,7 @@ RUN set -ex; \
         mariadb-connector-c-dev \
     ; \
     pip3 install --no-cache-dir rpi.gpio; \
-    pip3 install --no-cache-dir adafruit-circuitpython-dht; \
+    pip3 install --no-cache-dir adafruit-circuitpython-dht==3.5.5; \
     pip3 install --no-cache-dir mariadb; \
     chmod +x /dht_sensor.py
 
