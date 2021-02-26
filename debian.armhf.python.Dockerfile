@@ -7,22 +7,23 @@ LABEL org.opencontainers.image.authors="Tobias Hargesheimer <docker@ison.ws>" \
 	org.opencontainers.image.url="https://hub.docker.com/r/tobi312/rpi-sensors/" \
 	org.opencontainers.image.source="https://github.com/Tob1as/rpi-sensors"
 
+SHELL ["/bin/bash", "-euxo", "pipefail", "-c"]
+
 COPY dht_sensor.py /
 
 RUN set -ex; \
     apt-get update; \
+    BUILD_PACKAGES='gcc libc6-dev libmariadb-dev'; \
     apt-get install -y --no-install-recommends \
-        #build-essential \
-        #python3-dev \
-        #python3-openssl \
-        gcc libc6-dev \
+        $BUILD_PACKAGES \
         libgpiod2 \
-        libmariadb-dev \
+        libmariadb3 \
     ; \
     rm -rf /var/lib/apt/lists/*; \
     pip3 install --no-cache-dir rpi.gpio; \
-    pip3 install --no-cache-dir adafruit-circuitpython-dht==3.5.5; \
     pip3 install --no-cache-dir mariadb; \
+    pip3 install --no-cache-dir adafruit-circuitpython-dht==3.5.5; \
+    apt-get remove --purge -y $BUILD_PACKAGES; apt autoremove -y ; \
     chmod +x /dht_sensor.py
 
 CMD ["python3", "-u", "./dht_sensor.py"]
