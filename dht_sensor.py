@@ -7,7 +7,7 @@ import mariadb
 
 # Variables
 DHT_DATA_PIN = int(os.environ.get('GPIO_PIN_DHT22', 4))
-DHT_READ_TIMEOUT = float(os.environ.get('DHT22_SLEEPTIME', 2))
+DHT_READ_TIMEOUT = float(os.environ.get('DHT22_SLEEPTIME', 15))
 DHT_ID = int(os.environ.get('DHT22_ID', 1))
 print("Set GPIO-Pin to D%s and SleepTime to %s and ID to %s" % (DHT_DATA_PIN, DHT_READ_TIMEOUT, DHT_ID))
 DB_HOST = str(os.environ.get('DB_HOST', 'localhost'))
