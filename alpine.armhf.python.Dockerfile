@@ -22,7 +22,7 @@ RUN \
     ; \
     pip3 install --no-cache-dir rpi.gpio; \
     pip3 install --no-cache-dir mariadb; \
-    pip3 install --no-cache-dir adafruit-circuitpython-dht==3.5.5; \
+    pip3 install --no-cache-dir adafruit-circuitpython-dht; \
     apk del --no-network --purge .build-deps; \
     chmod +x /dht_sensor.py
 

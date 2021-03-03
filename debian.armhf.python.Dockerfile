@@ -22,7 +22,7 @@ RUN set -ex; \
     rm -rf /var/lib/apt/lists/*; \
     pip3 install --no-cache-dir rpi.gpio; \
     pip3 install --no-cache-dir mariadb; \
-    pip3 install --no-cache-dir adafruit-circuitpython-dht==3.5.5; \
+    pip3 install --no-cache-dir adafruit-circuitpython-dht; \
     apt-get remove --purge -y $BUILD_PACKAGES; apt autoremove -y ; \
     chmod +x /dht_sensor.py
 
