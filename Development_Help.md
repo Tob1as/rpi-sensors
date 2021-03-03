@@ -23,6 +23,6 @@
     * Checksum not validate: sleep time problem or use other pin?
 
 * Other info:
-    * Tested 2020-02-25 with: RPi.GPIO==0.7.0 (with gcc 9), adafruit-circuitpython-dht==3.5.4/3.5.5, mariadb==1.0.6 on Alpine 3.12
+    * Tested 2020-02-25 with: RPi.GPIO==0.7.0 (with gcc 9), adafruit-circuitpython-dht==3.5.4/3.5.5, mariadb==1.0.6 on Alpine 3.12 mit Python 3.9
     * Alpine 3.13? Then `echo "@previous https://dl-cdn.alpinelinux.org/alpine/v3.12/main" >> /etc/apk/repositories` and to install gcc version 9.x `gcc@previous` for RPi.GPIO
 
