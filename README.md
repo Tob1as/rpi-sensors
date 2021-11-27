@@ -14,8 +14,8 @@ The sensor is read out with a Python script and the library [Adafruit_CircuitPyt
 ## Installation / Usage
 
 ### Note: 
-It use [physical PIN7 = GPIO4 (D4)](https://www.raspberrypi.org/documentation/usage/gpio/) by default. You can now[*](https://github.com/adafruit/Adafruit_CircuitPython_DHT/issues/57) change the GPIO Pin over a env-Variable (see below). 
-The other two cable of `AM2302` are connect to 3V and Ground.
+It use [physical PIN7 = GPIO4 (D4)](https://www.raspberrypi.com/documentation/computers/os.html#gpio-and-the-40-pin-header) by default. You can now[*](https://github.com/adafruit/Adafruit_CircuitPython_DHT/issues/57) change the GPIO Pin over a env-Variable (see below). 
+The other two cable of `AM2302` are connect to 3V (or 5V) and Ground.
 
 ### First Step:    
 ```sh
