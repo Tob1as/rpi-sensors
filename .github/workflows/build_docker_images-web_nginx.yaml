@@ -81,7 +81,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           context: .
           file: ./web_nginx.alpine.Dockerfile
-          platforms: linux/arm/v7,linux/arm/v6
+          platforms: linux/arm/v7
           push: true
           build-args: |
             BUILD_DATE=${{steps.script.outputs.build_date}}
