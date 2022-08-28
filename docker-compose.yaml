@@ -54,12 +54,14 @@ services:
     devices:
       - /dev/gpiomem
     #volumes:
-    #  - ./dht_sensor.py:/dht_sensor.py:ro
+    #  - ./dht_sensor.py:/service/dht_sensor.py:ro
     depends_on:
       mariadb:
         condition: ${DEPENDS_CONDITION:-service_healthy}
     networks:
       net-sensors:
+    #entrypoint: [ "/bin/sh", "-c", "--" ]
+    #command: [ "while true; do sleep 60; done;" ]
 
   # copy and paste "dht22" when you have more than one sensor, then rename to "dht22-2" and change GPIO-PIN and ID (2).
 

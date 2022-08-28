@@ -1,21 +1,28 @@
-FROM arm32v7/python:3-alpine3.12
+FROM python:3.10-alpine
+
+ARG VCS_REF
+ARG BUILD_DATE
 
 LABEL org.opencontainers.image.authors="Tobias Hargesheimer <docker@ison.ws>" \
 	org.opencontainers.image.title="PI-Sensors" \
-	org.opencontainers.image.description="AlpineLinux with Python 3 and Raspberry Pi GPIO Sensors" \
+	org.opencontainers.image.description="Raspberry Pi GPIO Sensors (AlpineLinux with Python 3)" \
 	org.opencontainers.image.licenses="Apache-2.0" \
+	org.opencontainers.image.created="${BUILD_DATE}" \
+	org.opencontainers.image.revision="${VCS_REF}" \
 	org.opencontainers.image.url="https://hub.docker.com/r/tobi312/rpi-sensors/" \
 	org.opencontainers.image.source="https://github.com/Tob1as/rpi-sensors" \
-	docker.build="docker build --pull -t dht:latest -f alpine.armhf.python_dht_git.Dockerfile ." \
-	docker.run="docker run --rm --name dht --device=/dev/gpiomem -e GPIO_PIN_DHT22=4 -e DHT22_SLEEPTIME=15 -d dht:latest" \
+	docker.build="docker build --pull -t local/dht:latest -f alpine.armhf.python_dht_git.Dockerfile ." \
+	docker.run="docker run --rm --name dht --device=/dev/gpiomem -e GPIO_PIN_DHT22=4 -e DHT22_SLEEPTIME=15 -d local/dht:latest" \
 	docker.logs="docker logs -f dht"	
 
 SHELL ["/bin/sh", "-euxo", "pipefail", "-c"]
 
-COPY dht_sensor.py /
+#COPY *.py /service/
+COPY dht_sensor.py /service/
 
 RUN \
-    #wget https://raw.githubusercontent.com/Tob1as/rpi-sensors/master/dht_sensor.py -O /dht_sensor.py ; \
+    #mkdir /service ; \
+    #wget https://raw.githubusercontent.com/Tob1as/rpi-sensors/master/dht_sensor.py -O /service/dht_sensor.py ; \
     apk add --no-cache --virtual .build-deps \
         gcc libc-dev \
         mariadb-connector-c-dev \
@@ -26,7 +33,9 @@ RUN \
         mariadb-connector-c \
     ; \
     pip3 install --no-cache-dir rpi.gpio; \
-    pip3 install --no-cache-dir mariadb; \
+    #pip3 install --no-cache-dir sysv-ipc; \
+    pip3 install --no-cache-dir mariadb==1.0.11; \
+    #pip3 install --no-cache-dir paho-mqtt; \
 ###################
 ## Install with PIP
     #pip3 install --no-cache-dir adafruit-circuitpython-dht; \
@@ -40,6 +49,8 @@ RUN \
     \
 ###################
     apk del --no-network --purge .build-deps ; \
-    chmod +x /dht_sensor.py
+    chmod +x /service/*.py
+
+WORKDIR /service
 
 CMD ["python3", "-u", "./dht_sensor.py"]
