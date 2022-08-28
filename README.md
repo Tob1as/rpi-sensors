@@ -8,7 +8,7 @@ The sensor is read out with a Python script and the library [Adafruit_CircuitPyt
 ## Requirements
 
 * Raspberry Pi
-* Raspberry Pi OS (previously called Raspbian), Version: 10 Buster
+* Raspberry Pi OS (previously called Raspbian), Version: 10 buster / 11 bullseye
 * Sensor: DHT22 (AM2302) (Buy: [int.](https://www.adafruit.com/product/393)/[de](https://www.rasppishop.de/Luftfeuchtigkeit-und-Temperatusensor-DHT22-AM2302))
 
 ## Installation / Usage
