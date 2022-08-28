@@ -43,6 +43,7 @@ services:
     privileged: ${PRIVILEGED_MODE_ENABLE:-false}
     environment:
       TZ: ${TZ:-UTC}
+      LOGLEVEL: ${LOGLEVEL:-INFO}
       GPIO_PIN_DHT22: ${GPIO_PIN_DHT22:-4}
       DHT22_SLEEPTIME: ${DHT22_SLEEPTIME:-60}
       DHT22_ID: ${DHT22_ID:-1}

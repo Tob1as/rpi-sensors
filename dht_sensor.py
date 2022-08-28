@@ -21,7 +21,7 @@ import mariadb
 #import ssl
 
 # Variables
-LOGLEVEL = str(os.environ.get('LOGLEVEL', 'DEBUG').upper())
+LOGLEVEL = str(os.environ.get('LOGLEVEL', 'INFO').upper())
 DHT_DATA_PIN = int(os.environ.get('GPIO_PIN_DHT22', 4))
 DHT_READ_TIMEOUT = float(os.environ.get('DHT22_SLEEPTIME', 15))
 DHT_ID = int(os.environ.get('DHT22_ID', 1))
