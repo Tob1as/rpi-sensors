@@ -99,12 +99,12 @@ if __name__ == "__main__":
                 temperature_c = dhtDevice.temperature
                 temperature_f = temperature_c * (9 / 5) + 32
                 humidity = dhtDevice.humidity
-                #logger.debug("Temp: {:.1f}F / {:.1f}C ; Humidity: {}% ".format(temperature_f, temperature_c, humidity))
+                #logger.debug("Temp: {:.1f}F / {:.1f}°C ; Humidity: {}% ".format(temperature_f, temperature_c, humidity))
 
                 temperature_c = float(round(temperature_c,1))
                 temperature_f = float(round(temperature_f,1))
                 humidity = float(round(humidity,1))
-                logger.info("Measured Values: Temp: %sF / %sC ; Humidity: %s%%" % (temperature_f, temperature_c, humidity))
+                logger.info("Measured Values: Temp: %sF / %s°C ; Humidity: %s%%" % (temperature_f, temperature_c, humidity))
 
                 # Save the values to the Database
                 if (DB_DATABASE !='' and DB_USER !='' and DB_PASSWORD !=''): 
