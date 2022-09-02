@@ -52,6 +52,13 @@ services:
       DB_DATABASE: ${DB_DATABASE}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
+      MQTT_HOST: ${MQTT_HOST}
+      MQTT_PORT: ${MQTT_PORT:-1883}
+      MQTT_SSL_ENABLED: ${MQTT_SSL_ENABLED:-False}
+      MQTT_USER: ${MQTT_USER}
+      MQTT_PASSWORD: ${MQTT_PASSWORD}
+      MQTT_CLIENTNAME: ${MQTT_CLIENTNAME:-sensor-1}
+      MQTT_TOPIC: ${MQTT_TOPIC:-sensors}
     devices:
       - /dev/gpiomem
     #volumes:

@@ -32,7 +32,7 @@ RUN \
     #pip3 install --no-cache-dir sysv-ipc; \
     pip3 install --no-cache-dir adafruit-circuitpython-dht; \
     pip3 install --no-cache-dir mariadb==1.0.11; \
-    #pip3 install --no-cache-dir paho-mqtt; \
+    pip3 install --no-cache-dir paho-mqtt; \
     apt-get remove --purge -y $BUILD_PACKAGES; apt autoremove -y ; \
     chmod +x /service/*.py
 

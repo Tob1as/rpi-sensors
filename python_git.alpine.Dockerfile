@@ -35,7 +35,7 @@ RUN \
     pip3 install --no-cache-dir rpi.gpio; \
     #pip3 install --no-cache-dir sysv-ipc; \
     pip3 install --no-cache-dir mariadb==1.0.11; \
-    #pip3 install --no-cache-dir paho-mqtt; \
+    pip3 install --no-cache-dir paho-mqtt; \
 ###################
 ## Install with PIP
     #pip3 install --no-cache-dir adafruit-circuitpython-dht; \
