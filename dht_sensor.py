@@ -159,7 +159,7 @@ if __name__ == "__main__":
                 temperature_c = float(round(temperature_c,1))
                 temperature_f = float(round(temperature_f,1))
                 humidity = float(round(humidity,1))
-                logger.info("Measured Values: Temp: %sF / %s°C ; Humidity: %s%%" % (temperature_f, temperature_c, humidity))
+                logger.info("Measured Values: Temperature: %sF / %s°C ; Humidity: %s%%" % (temperature_f, temperature_c, humidity))
 
                 measurement_time = currenttime()
 
