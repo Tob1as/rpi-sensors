@@ -3,7 +3,7 @@ version: '2.4'
 services:
 
   mariadb:
-    image: tobi312/rpi-mariadb:10.4-alpine
+    image: tobi312/rpi-mariadb:10.6-alpine
     #container_name: sensors-mariadb
     #restart: unless-stopped
     volumes:
