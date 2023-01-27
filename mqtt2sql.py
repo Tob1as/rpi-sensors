@@ -27,11 +27,14 @@ DB_USER = str(os.environ.get('DB_USER', ''))
 DB_PASSWORD = str(os.environ.get('DB_PASSWORD', ''))
 MQTT_HOST = str(os.environ.get('MQTT_HOST', 'vernemq'))
 MQTT_PORT = int(os.environ.get('MQTT_PORT', 1883))
-MQTT_SSL_ENABLED = bool(os.environ.get('MQTT_SSL_ENABLED', False))
+#MQTT_SSL_ENABLED = bool(os.environ.get('MQTT_SSL_ENABLED', False))
+MQTT_SSL_ENABLED = bool(eval(str(os.environ.get('MQTT_SSL_ENABLED', 'False')).title()))    # convert to boolean, because env are only str!
 MQTT_USER = str(os.environ.get('MQTT_USER', ''))
 MQTT_PASSWORD = str(os.environ.get('MQTT_PASSWORD', ''))
 MQTT_CLIENT_ID = str(os.environ.get('MQTT_CLIENTNAME', f'sensor-mqtt2sql'))
 MQTT_TOPIC = str(os.environ.get('MQTT_TOPIC', 'sensors'))
+FILE_SAVE_ENABLED = bool(eval(str(os.environ.get('FILE_SAVE_ENABLED', 'False')).title()))  # convert to boolean, because env are only str!
+FILE_BASE_PATH= str(os.environ.get('FILE_BASE_PATH', './'))
 
 # Logging
 logging.root.handlers = []
@@ -69,6 +72,15 @@ def save_to_sql(sensor_id, temperature_f, temperature_c, humidity, date_time):
     logger.debug(f"Database - Last Inserted ID: {cur.lastrowid}")
     conn.close()
 
+def save2file(mqtt_topic, mqtt_msq):
+    mqtt_topic_f = mqtt_topic.replace("/", "+")
+    current_time=currenttime().replace(":", "-").replace(" ", "+")
+    filename=FILE_BASE_PATH+current_time+"++"+mqtt_topic_f+".json"
+    file = open(filename, 'w', encoding='utf-8')
+    file.write(mqtt_msq)
+    file.close()
+    logger.debug("Save to File: %s", filename)
+
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
         if rc == 0:
@@ -101,12 +113,17 @@ def on_message(client, userdata, message):
         save_to_sql(sensor_id, temperature_f, temperature_c, humidity, date_time)
     else: 
         logger.debug("Data not save in Database!")
+    if FILE_SAVE_ENABLED == True:
+        save2file(message.topic, msg)
+    else: 
+        logger.debug("Data not save to File!")
 
 if __name__ == "__main__":
     logger.info("Sensor Service started!")
     logger.info("Database - set Host to \"%s\", Port to \"%s\", DB to \"%s\" and User to \"%s\"" % (DB_HOST, DB_PORT, DB_DATABASE, DB_USER))
     logger.info("MQTT - set Host to \"%s\", Port to \"%s\", Topic to \"%s\" and User to \"%s\" with Client-ID=%s and SSL=%s" % (MQTT_HOST, MQTT_PORT, MQTT_TOPIC, MQTT_USER, MQTT_CLIENT_ID, MQTT_SSL_ENABLED))
-                                                                                    
+    logger.info("File - set SAVE_ENABLED to \"%s\" and BASE_PATH to \"%s\"" % (FILE_SAVE_ENABLED,FILE_BASE_PATH))
+
     try:
         try:
             client = connect_mqtt()
