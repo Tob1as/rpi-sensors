@@ -18,6 +18,9 @@ SHELL ["/bin/sh", "-euxo", "pipefail", "-c"]
 COPY mqtt2sql.py /service/
 
 RUN \
+    addgroup --gid 1000 service ; \
+    adduser --system --shell /bin/sh --uid 1000 --ingroup service --home /service service ; \
+    \
     #mkdir /service ; \
     apk add --no-cache --virtual .build-deps \
         gcc libc-dev \
@@ -29,10 +32,15 @@ RUN \
     pip3 install --no-cache-dir mariadb==1.0.11; \
     pip3 install --no-cache-dir paho-mqtt; \
     apk del --no-network --purge .build-deps; \
-    chmod +x /service/*.py
+    chmod +x /service/*.py ; \
+    \
+    mkdir /data ; \
+    chmod 777 /data ; \
+    chown -R service:service /data
 
-WORKDIR /service
+WORKDIR /data
+USER service
 
 STOPSIGNAL SIGINT
 
-CMD ["python3", "-u", "./mqtt2sql.py"]
+CMD ["python3", "-u", "/service/mqtt2sql.py"]
