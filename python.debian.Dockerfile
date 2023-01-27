@@ -38,4 +38,6 @@ RUN \
 
 WORKDIR /service
 
+STOPSIGNAL SIGINT
+
 CMD ["python3", "-u", "./dht_sensor.py"]

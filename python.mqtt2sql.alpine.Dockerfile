@@ -33,4 +33,6 @@ RUN \
 
 WORKDIR /service
 
+STOPSIGNAL SIGINT
+
 CMD ["python3", "-u", "./mqtt2sql.py"]
