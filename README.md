@@ -33,8 +33,8 @@ Use Docker (recommended) or manual installation.
 
 Requirements:
 * installed [Docker](https://docs.docker.com/engine/install/debian/)
-* installed [Docker-Compose](https://docs.docker.com/compose/install/#install-using-pip)
-* Help? Use my install [Script](https://github.com/Tob1asDocker/Collection/raw/master/scripts/docker%2Bdocker-compose_install.sh) for that.
+* installed [Docker-Compose](https://docs.docker.com/compose/install/linux/#install-using-the-repository)
+* Help? Use my install [Script](https://github.com/Tob1as/docker-kubernetes-collection/blob/master/scripts/docker+docker-compose_install.sh) for that.
 * Note: This was developed and tested on a Raspberry Pi 3. On 4 it run when you set `PRIVILEGED_MODE_ENABLE=true` in `.env`-File (see below).
 
 Steps:  
