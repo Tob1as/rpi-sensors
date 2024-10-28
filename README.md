@@ -69,9 +69,10 @@ Steps:
     ```sh
     sudo apt-get update
     sudo apt-get install -y build-essential python3-dev libgpiod2 libmariadb-dev
-    sudo pip3 install adafruit-circuitpython-dht
-    sudo pip3 install mariadb==1.0.11
-    sudo pip3 install paho-mqtt
+    sudo pip3 install adafruit-blinka==8.44.4
+    sudo pip3 install adafruit-circuitpython-dht==4.0.5
+    sudo pip3 install mariadb==1.1.10
+    sudo pip3 install paho-mqtt==2.1.0
     ```
 2. Setup local or external MariaDB/MySQL.
 3. Export Variable in `example.env`-File or change default value in `dht_sensor.py`.
