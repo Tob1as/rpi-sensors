@@ -29,7 +29,7 @@ RUN \
     ; \
     pip3 install --no-cache-dir rpi.gpio==0.7.1; \
     #pip3 install --no-cache-dir sysv-ipc==1.1.0; \
-    pip3 install --no-cache adafruit-blinka==8.44.4 ; \
+    pip3 install --no-cache adafruit-blinka==8.43.0 ; \
     pip3 install --no-cache-dir adafruit-circuitpython-dht==4.0.5; \
     pip3 install --no-cache-dir mariadb==1.1.10; \
     pip3 install --no-cache-dir paho-mqtt==2.1.0; \
