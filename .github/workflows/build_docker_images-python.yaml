@@ -83,7 +83,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           context: .
           file: ./python.alpine.Dockerfile
-          platforms: linux/arm64/v8,linux/arm/v7,linux/arm/v6
+          platforms: linux/arm64/v8
           push: true
           build-args: |
             BUILD_DATE=${{steps.script.outputs.build_date}}
@@ -100,7 +100,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           context: .
           file: ./python.debian.Dockerfile
-          platforms: linux/arm64/v8,linux/arm/v7,linux/arm/v5
+          platforms: linux/arm64/v8
           pull: true
           push: true
           #build-args: |
