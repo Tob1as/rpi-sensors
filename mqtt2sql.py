@@ -82,8 +82,8 @@ def save2file(mqtt_topic, mqtt_msq):
     logger.debug("Save to File: %s", filename)
 
 def connect_mqtt():
-    def on_connect(client, userdata, flags, rc):
-        if rc == 0:
+    def on_connect(client, userdata, flags, reason_code, properties):
+        if reason_code == 0:
             logger.debug("Connected to MQTT Broker!")
         else:
             logger.debug("Connect to MQTT Broker failed! result code: %d", rc)

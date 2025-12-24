@@ -89,8 +89,8 @@ def save_to_sql(measurement_time, temperature_f, temperature_c, humidity):
     conn.close()
 
 def connect_mqtt():
-    def on_connect(client, userdata, flags, rc):
-        if rc == 0:
+    def on_connect(client, userdata, flags, reason_code, properties):
+        if reason_code == 0:
             logger.debug("Connected to MQTT Broker!")
         else:
             logger.debug("Connect to MQTT Broker failed! result code: %d", rc)
