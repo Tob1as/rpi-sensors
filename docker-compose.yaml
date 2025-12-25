@@ -42,7 +42,7 @@ services:
     #image: tobi312/rpi-sensors:python-debian
     #container_name: sensors-dht22
     #restart: unless-stopped
-    privileged: ${PRIVILEGED_MODE_ENABLE:-false}
+    privileged: ${PRIVILEGED_MODE_ENABLE:-true}
     environment:
       TZ: ${TZ:-UTC}
       LOGLEVEL: ${LOGLEVEL:-INFO}
@@ -61,10 +61,13 @@ services:
       MQTT_PASSWORD: ${MQTT_PASSWORD}
       MQTT_CLIENTNAME: ${MQTT_CLIENTNAME:-sensor-1}
       MQTT_TOPIC: ${MQTT_TOPIC:-sensors}
-    devices:
-      - /dev/gpiomem
+    #devices:
+    #  - /dev/gpiomem
     #volumes:
     #  - ./dht_sensor.py:/service/dht_sensor.py:ro
+    user: nobody
+    group_add:
+      - "${GPIO_GID}"
     depends_on:
       mariadb:
         condition: ${DEPENDS_CONDITION:-service_healthy}

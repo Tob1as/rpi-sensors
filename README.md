@@ -33,7 +33,7 @@ Use Docker (recommended) or manual installation.
 
 Requirements:
 * installed [Docker & Docker-Compose](https://docs.docker.com/engine/install/debian/#install-using-the-repository)
-* Note: This was developed and tested on a Raspberry Pi 3. On 4 it run when you set `PRIVILEGED_MODE_ENABLE=true` in `.env`-File (see below).
+* Note: On Raspbian/Debian > 11 it run only when you set `PRIVILEGED_MODE_ENABLE=true` in `.env`-File (see below).
 
 Steps:  
 1. copy env-File:
