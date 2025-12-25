@@ -80,8 +80,6 @@ services:
     #  context: ./
     #  dockerfile: alpine.armhf.web_nginx.Dockerfile
     image: tobi312/rpi-sensors:web-nginx-alpine
-    #image: tobi312/php:8.0-fpm-nginx-alpine-arm
-    #image: tobi312/php:8.0-apache-arm
     #container_name: sensors-web
     #restart: unless-stopped
     ports:
