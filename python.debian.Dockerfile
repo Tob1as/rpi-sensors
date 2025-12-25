@@ -24,7 +24,7 @@ RUN \
     BUILD_PACKAGES='gcc libc6-dev libmariadb-dev'; \
     apt-get install -y --no-install-recommends \
         $BUILD_PACKAGES \
-        libgpiod2 \
+        libgpiod3 \
         libmariadb3 \
     ; \
     rm -rf /var/lib/apt/lists/*; \
