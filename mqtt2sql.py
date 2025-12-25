@@ -86,10 +86,10 @@ def connect_mqtt():
         if reason_code == 0:
             logger.debug("Connected to MQTT Broker!")
         else:
-            logger.debug("Connect to MQTT Broker failed! result code: %d", rc)
+            logger.debug("Connect to MQTT Broker failed! result code: %d", reason_code)
     #def on_message(client, userdata, message):
     #    logger.debug("Message Recieved: "+message.payload.decode())
-    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1, MQTT_CLIENT_ID)
+    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, MQTT_CLIENT_ID)
     client.username_pw_set(MQTT_USER, MQTT_PASSWORD)
     client.on_connect = on_connect
     if MQTT_SSL_ENABLED == True:

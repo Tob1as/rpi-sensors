@@ -1,3 +1,5 @@
-rpi.gpio
-adafruit-circuitpython-dht
-mariadb==1.0.11
+rpi.gpio==0.7.1
+adafruit-blinka==8.68.1
+adafruit-circuitpython-dht==4.0.10
+mariadb==1.1.14
+paho-mqtt==2.1.0

@@ -1,4 +1,4 @@
-FROM python:3.13-alpine
+FROM python:3.14-alpine
 
 ARG VCS_REF
 ARG BUILD_DATE
@@ -29,9 +29,9 @@ RUN \
     ; \
     pip3 install --no-cache-dir rpi.gpio==0.7.1; \
     #pip3 install --no-cache-dir sysv-ipc==1.1.0; \
-    pip3 install --no-cache adafruit-blinka==8.43.0 ; \
-    pip3 install --no-cache-dir adafruit-circuitpython-dht==4.0.5; \
-    pip3 install --no-cache-dir mariadb==1.1.10; \
+    pip3 install --no-cache-dir adafruit-blinka==8.68.1 ; \
+    pip3 install --no-cache-dir adafruit-circuitpython-dht==4.0.10; \
+    pip3 install --no-cache-dir mariadb==1.1.14; \
     pip3 install --no-cache-dir paho-mqtt==2.1.0; \
     apk del --no-network --purge .build-deps; \
     chmod +x /service/*.py

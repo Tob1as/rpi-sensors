@@ -1,4 +1,4 @@
-FROM python:3.13-alpine
+FROM python:3.14-alpine
 
 ARG VCS_REF
 ARG BUILD_DATE
@@ -29,7 +29,7 @@ RUN \
     apk add --no-cache \
         mariadb-connector-c \
     ; \
-    pip3 install --no-cache-dir mariadb==1.1.10; \
+    pip3 install --no-cache-dir mariadb==1.1.14; \
     pip3 install --no-cache-dir paho-mqtt==2.1.0; \
     apk del --no-network --purge .build-deps; \
     chmod +x /service/*.py ; \
