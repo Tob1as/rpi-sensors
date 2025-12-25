@@ -1,0 +1,48 @@
+# check configs (both docker-compose files will merged): 
+# docker-compose -f docker-compose.yaml -f docker-compose.override-example.yaml config
+# start/stop:
+# docker-compose -f docker-compose.yaml -f docker-compose.override-example.yaml up -d
+# docker-compose -f docker-compose.yaml -f docker-compose.override-example.yaml down -v
+version: '2.4'
+
+services:
+
+  mariadb:
+    restart: unless-stopped
+
+  dht22:
+    restart: unless-stopped
+
+  web:
+    restart: unless-stopped
+    # set in .env "WEB_PORT=127.0.0.1:<YOUR-PORT>" for non public port, because we use traefik
+    # Docs: https://doc.traefik.io/traefik/
+    # example Traefik docker-compose file: https://github.com/Tob1as/docker-kubernetes-collection/blob/master/examples_docker-compose/traefik_v3.yml
+    # url: http://my-raspberrypi-hostname/sensors/  (Note the slash at the end.)
+    networks:
+      - net-sensors
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.services.rpi-sensors.loadbalancer.server.port=80"
+      - "traefik.http.services.rpi-sensors.loadbalancer.server.scheme=http"  # when "https" then set "--serversTransport.insecureSkipVerify=true" for traefik
+      # http
+      - "traefik.http.routers.rpi-sensors-http.rule=(Host(`my-raspberrypi-hostname`) || Host(`192.168.1.100`)) && PathPrefix(`/sensors`)"
+      - "traefik.http.routers.rpi-sensors-http.entrypoints=web"
+      - "traefik.http.routers.rpi-sensors-http.service=rpi-sensors"
+      # https
+      - "traefik.http.routers.rpi-sensors-https.tls=true"
+      - "traefik.http.routers.rpi-sensors-https.rule=(Host(`my-raspberrypi-hostname`) || Host(`192.168.1.100`)) && PathPrefix(`/sensors`)"
+      - "traefik.http.routers.rpi-sensors-https.entrypoints=websecure"
+      - "traefik.http.routers.rpi-sensors-https.service=rpi-sensors"
+      # load middlewares for routers
+      - "traefik.http.routers.rpi-sensors-http.middlewares=rpi-sensors-stripprefix@docker"
+      - "traefik.http.routers.rpi-sensors-https.middlewares=rpi-sensors-stripprefix@docker"
+      # stripprefix <https://doc.traefik.io/traefik/reference/routing-configuration/http/middlewares/stripprefix/>
+      - "traefik.http.middlewares.rpi-sensors-stripprefix.stripprefix.prefixes=/sensors"
+      
+networks:
+  traefik:
+    external: true
+    name: traefik
