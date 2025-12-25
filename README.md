@@ -32,9 +32,7 @@ Use Docker (recommended) or manual installation.
 #### Docker
 
 Requirements:
-* installed [Docker](https://docs.docker.com/engine/install/debian/)
-* installed [Docker-Compose](https://docs.docker.com/compose/install/linux/#install-using-the-repository)
-* Help? Use my install [Script](https://github.com/Tob1as/docker-kubernetes-collection/blob/master/scripts/docker+docker-compose_install.sh) for that.
+* installed [Docker & Docker-Compose](https://docs.docker.com/engine/install/debian/#install-using-the-repository)
 * Note: This was developed and tested on a Raspberry Pi 3. On 4 it run when you set `PRIVILEGED_MODE_ENABLE=true` in `.env`-File (see below).
 
 Steps:  
@@ -44,23 +42,23 @@ Steps:
     ```
 2. change settings in `.env`-File, example Database Password or GPIO Pin. Then optional check config:
     ```sh
-    docker-compose config
+    docker compose config
     ```
 3. Run:
     ```sh
-    docker-compose up -d
+    docker compose up -d
     ```
     or:
     ```sh
-    docker-compose up -d mariadb dht22 web
+    docker compose up -d mariadb dht22 web
     ```
 4. [optional] Logs:
     ```sh
-    docker-compose logs -f
+    docker compose logs -f
     ```
 5. [optional] Stop:
     ```sh
-    docker-compose down -v
+    docker compose down -v
     ```
 
 #### manual installation
@@ -68,10 +66,11 @@ Steps:
 1. Install requirements:
     ```sh
     sudo apt-get update
-    sudo apt-get install -y build-essential python3-dev libgpiod2 libmariadb-dev
-    sudo pip3 install adafruit-blinka==8.43.0
-    sudo pip3 install adafruit-circuitpython-dht==4.0.5
-    sudo pip3 install mariadb==1.1.10
+    sudo apt-get install -y build-essential python3-dev libgpiod2 libgpiod3 libmariadb-dev
+    #sudo pip3 install rpi.gpio==0.7.1
+    sudo pip3 install adafruit-blinka==8.68.1
+    sudo pip3 install adafruit-circuitpython-dht==4.0.10
+    sudo pip3 install mariadb==1.1.14
     sudo pip3 install paho-mqtt==2.1.0
     ```
 2. Setup local or external MariaDB/MySQL.
