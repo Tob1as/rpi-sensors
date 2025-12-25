@@ -21,7 +21,7 @@ RUN \
     #set -ex; \
     #mkdir /service ; \
     apt-get update; \
-    BUILD_PACKAGES='gcc libc6-dev libmariadb-dev'; \
+    BUILD_PACKAGES='gcc libc6-dev libmariadb-dev pkg-config'; \
     apt-get install -y --no-install-recommends \
         $BUILD_PACKAGES \
         libgpiod3 \
