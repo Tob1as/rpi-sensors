@@ -1,8 +1,8 @@
 # check configs (both docker-compose files will merged): 
-# docker-compose -f docker-compose.yaml -f docker-compose.override-example.yaml config
+# docker compose -f docker-compose.yaml -f docker-compose.override-example.yaml config
 # start/stop:
-# docker-compose -f docker-compose.yaml -f docker-compose.override-example.yaml up -d
-# docker-compose -f docker-compose.yaml -f docker-compose.override-example.yaml down -v
+# docker compose -f docker-compose.yaml -f docker-compose.override-example.yaml up -d
+# docker compose -f docker-compose.yaml -f docker-compose.override-example.yaml down -v
 version: '2.4'
 
 services:
@@ -15,9 +15,11 @@ services:
 
   web:
     restart: unless-stopped
-    # set in .env "WEB_PORT=127.0.0.1:<YOUR-PORT>" for non public port, because we use traefik
-    # Docs: https://doc.traefik.io/traefik/
-    # example Traefik docker-compose file: https://github.com/Tob1as/docker-kubernetes-collection/blob/master/examples_docker-compose/traefik_v3.yml
+    # In .env set "WEB_PORT=127.0.0.1:<YOUR-PORT>" for non public port, because we use traefik
+    # and set also "WEB_ENABLE_REMOTEIP=1"
+    # 
+    # Traefik Docs: https://doc.traefik.io/traefik/
+    # Traefik example docker-compose: https://github.com/Tob1as/docker-kubernetes-collection/blob/master/examples_docker-compose/traefik_v3.yml
     # url: http://my-raspberrypi-hostname/sensors/  (Note the slash at the end.)
     networks:
       - net-sensors
