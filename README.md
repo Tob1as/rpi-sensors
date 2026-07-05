@@ -66,7 +66,7 @@ Steps:
 1. Install requirements:
     ```sh
     sudo apt-get update
-    sudo apt-get install -y build-essential python3-dev libgpiod2 libgpiod3 libmariadb-dev
+    sudo apt-get install -y build-essential python3-dev gpiod libgpiod-dev libgpiod2 libgpiod3 libmariadb-dev
     #sudo pip3 install rpi.gpio==0.7.1
     sudo pip3 install adafruit-blinka==8.68.1
     sudo pip3 install adafruit-circuitpython-dht==4.0.10
